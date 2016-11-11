@@ -1,8 +1,8 @@
 FROM fedora
 MAINTAINER scollier <scollier@redhat.com>
 
-RUN yum -y update && yum clean all
-RUN yum -y install openssh-server && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install openssh-server passwd && dnf clean all
 ADD ./start.sh /start.sh
 RUN mkdir /var/run/sshd
 
