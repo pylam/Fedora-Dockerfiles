@@ -6,14 +6,14 @@ set -ex -o pipefail
 [ "$1" == "" ] && echo "Must provide tag as argument" && exit 1
 
 # Check to make sure required utilites are present
-/usr/bin/which cpio docker mktemp rpm2cpio tar yumdownloader
+/usr/bin/which cpio docker mktemp rpm2cpio tar dnf 
 
 # cd to a temporary directory
 tmpdir=$(mktemp -d)
 pushd $tmpdir
 
 # Get and extract busybox 
-yumdownloader busybox 
+dnf download busybox 
 rpm2cpio busybox*rpm | cpio -imd
 rm -f busybox*rpm
 
