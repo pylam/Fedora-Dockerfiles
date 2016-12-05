@@ -1,5 +1,5 @@
 FROM fedora
-MAINTAINER Aditya Patawari <adimania@fedoraproject.org>
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 RUN dnf -y update && dnf clean all
 RUN dnf -y install redis && dnf clean all

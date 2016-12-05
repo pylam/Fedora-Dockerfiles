@@ -1,14 +1,14 @@
-FROM fedora
-MAINTAINER scollier <scollier@redhat.com>
+FROM docker.io/fedora
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
-RUN dnf -y update && dnf clean all
-RUN dnf -y install openssh-server passwd && dnf clean all
-ADD ./start.sh /start.sh
-RUN mkdir /var/run/sshd
+# Atomic RUN label, enables the atomic cli
+LABEL RUN='docker run --name ssh -d -p 2200:22 $IMAGE'
 
-RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' 
+EXPOSE 22
 
-RUN chmod 755 /start.sh
-# EXPOSE 22
-RUN ./start.sh
-ENTRYPOINT ["/usr/sbin/sshd", "-D"]
+RUN dnf -y update && dnf -y install openssh-server passwd && dnf clean all
+
+COPY entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/sbin/sshd", "-D"]

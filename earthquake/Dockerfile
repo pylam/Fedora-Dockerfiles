@@ -1,11 +1,11 @@
 # Based on the Fedora image
 FROM fedora
 
-MAINTAINER "Maciej Lasyk" <maciek@lasyk.info>
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 # install main packages:
 RUN dnf -y update && dnf clean all
-RUN dnf -y install openssl-devel openssl readline readline-devel gcc gcc-c++ rubygems rubygems-devel ruby ruby-devel redhat-rpm-config && dnf clean all
+RUN dnf -y install openssl-devel openssl readline readline-devel gcc gcc-c++ rubygems rubygems-devel ruby ruby-devel && dnf clean all
 
 # install earthquake
 RUN gem install earthquake

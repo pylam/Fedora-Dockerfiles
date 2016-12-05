@@ -1,11 +1,11 @@
 # Based on the Fedora image
 FROM fedora
 
-MAINTAINER "Jiri Popelka" <jpopelka@redhat.com>
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
-# install main packages:
 RUN dnf -y update && dnf clean all
-RUN dnf -y install dhcp && dnf clean all
+
+RUN dnf -y install dhcp-server /usr/sbin/ip /usr/bin/ipcalc && dnf clean all
 
 ADD dhcpd.sh /dhcpd
 

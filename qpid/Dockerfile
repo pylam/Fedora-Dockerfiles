@@ -1,5 +1,5 @@
 FROM fedora
-MAINTAINER William Henry <whenry@redhat.com>
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 RUN dnf -y update && dnf clean all
 RUN dnf install -y python-qpid qpid-cpp-server && dnf clean all

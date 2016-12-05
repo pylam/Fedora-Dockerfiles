@@ -1,5 +1,5 @@
 FROM fedora
-MAINTAINER Stephen Tweedie <sct@redhat.com>
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 RUN dnf update -y &&  dnf clean all
 RUN dnf install -y docker-registry && dnf clean all

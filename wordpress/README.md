@@ -1,40 +1,38 @@
 dockerfiles-fedora-wordpress
-========================
+============================
 
-(note: This originated from [jbfink](https://github.com/jbfink). I ported over to Fedora.)
+(note: This originated from [jbfink](https://github.com/jbfink). It has been ported over to Fedora and made linkable with the mariadb container.)
 
-Tested on Docker 0.7.0
+Tested on Docker 1.4.1
 
 (note: [Eugene Ware](http://github.com/eugeneware) has a Docker wordpress container build on nginx with some other goodies; you can check out his work [here](http://github.com/eugeneware/docker-wordpress-nginx).)
 
-When you run the below commands, simply use sudo. This is a [known issue](https://twitter.com/docker/status/366040073793323008).)
-
-This repo contains a recipe for making a [Docker](http://docker.io) container for Wordpress, using Linux, Apache and MySQL on Fedora. 
-To build, make sure you have Docker [installed](http://www.docker.io/gettingstarted/), clone this repo somewhere, and then run:
+This repo contains a recipe for making a [Docker](http://docker.io) container for Wordpress, using Apache on Fedora, linked with a MariaDB/MySQL container. 
+To build, make sure you have Docker [installed](http://www.docker.io/gettingstarted/), clone this repo somewhere, and then build both mariadb and wordpress images:
 
 ```
+# cd mariadb
+# docker build --rm -t <yourname>/mariadb .
+```
+
+```
+# cd wordpress
 # docker build --rm -t <yourname>/wordpress .
 ```
 
-Or, alternately, build DIRECTLY from the github repo:
+### Quick start ###
+
+Run the mariadb container:
 
 ```
-# docker build --rm -t <username>/wordpress git://github.com/scollier/dockerfiles-fedora-wordpress.git
+# docker run --name=mydb -e USER=wordpress -e PASS=$(pwgen -s -1) -e NAME=wordpress -d <yourname>/mariadb
 ```
 
-Run it:
+Then run the wordpress container, using the alias 'db' for the linked MariaDB container:
 
 ```
-# CID=$(docker run -d -p 80 -p 22 <yourname>/wordpress)
+# CID=$(docker run -p 80 --link=mydb:db -d <yourname>/wordpress)
 ```
-
-Check docker logs after running to see MySQL root password and Wordpress MySQL password, as so:
-
-```
-# echo $(docker logs $CID | grep password)
-```
-
-(note: you won't need the mysql root or the wordpress db password normally)
 
 Then find the external port assigned to your container:
 
@@ -44,11 +42,26 @@ Then find the external port assigned to your container:
 
 Visit in a webrowser, then fill out the form. No need to mess with wp-config.php, it's been auto-generated with proper values. 
 
+### Using volumes ###
 
-Note that this image now has a user account (appropriately named "user") and passwordless sudo for that user account. The password is generated upon startup; check logs for "ssh user password", docker ps for the port assigned to 22, and something like this to get in: 
+To make sure the wordpress data is persistent, you'll want to use separate data volumes for the MariaDB database and the wordpress content (media, themes, plugins etc).
+
+For the database:
 
 ```
-# ssh -p <port> user@localhost
+# docker run -e USER=wordpress -e PASS=$(pwgen -s -1) -e NAME=wordpress \
+    -v /mnt/db:/var/lib/mysql -d <yourname>/mariadb
 ```
 
+If /mnt/db has already been initialised, make sure to use the correct values for USER, PASS, and NAME, rather than creating new ones.
 
+For the wordpress instance:
+
+```
+# docker run --link=the-mariadb-container:db -p 80 \
+    -v /mnt/wp-content:/var/www/html/wp-content -d <yourname>/wordpress
+```
+
+The container will generate a new wp-config.php based on the information provided by the linked container. Local configuration changes to wp-config.php will not persist when making a new wordpress container even if you are using a volume for wp-content.
+
+If you remove the linked mariadb container and create a new one, you will need to update the DB_HOST setting in wp-config.php, or simply create a new wordpress container linked to the new mariadb container.

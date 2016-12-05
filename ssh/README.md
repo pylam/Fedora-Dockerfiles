@@ -1,24 +1,38 @@
 # dockerfiles-fedora-ssh
 
-# Building & Running
+## Building
 
 Copy the sources to your docker host and build the container:
 
 	# docker build --rm -t <username>/ssh .
 
-To run:
+## Running
 
-	# docker run -d -p 22 <username>/ssh
-
-Get the port that the container is listening on:
+You can run the image on the registry without rebuilding with the following 
+command. By default, it will bind port 2200 on the host to 22 within the container.
 
 ```
-# docker ps
-CONTAINER ID        IMAGE                 COMMAND             CREATED             STATUS              PORTS                   NAMES
-8c82a9287b23        <username>/ssh:latest   /usr/sbin/sshd -D   4 seconds ago       Up 2 seconds        0.0.0.0:49154->22/tcp   mad_mccarthy        
+# sudo atomic run docker.io/fedora/ssh
 ```
 
-To test, use the port that was just located:
+To run the container, binding to port 2200 on the host:
+```
+# docker run --name ssh -d -p 2200:22 <username>/ssh
+```
+This will create a user named `user` with a randomly generated
+password.  You can obtain the password via `docker logs`:
 
-	# ssh -p xxxx user@localhost 
+    # docker logs ssh | grep 'ssh user password'
+    ssh user password: O2WXqqQ1CWwXHxrLZGip
 
+You can set a specific password using the `SSH_USERPASS` environment
+variable:
+
+    # docker run --name ssh -d -p 2200:22 \
+      -e SSH_USERPASS=secret <username>/ssh
+
+To connect to this container:
+
+    # ssh -p 2200 user@localhost
+    user@localhost's password: 
+    [user@d3a244022ca5 ~]$ 

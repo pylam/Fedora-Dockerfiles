@@ -1,5 +1,5 @@
 FROM fedora
-MAINTAINER "Jens Petersen" <petersen@redhat.com>
+MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 RUN dnf -y update && dnf clean all
 RUN dnf -y install ghc cabal-install cabal-rpm ghc-Cabal-devel\
