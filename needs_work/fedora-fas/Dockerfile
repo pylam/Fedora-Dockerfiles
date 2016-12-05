@@ -5,11 +5,11 @@ FROM fedora
 MAINTAINER "Maciej Lasyk" <maciek@lasyk.info>
 
 # install main packages:
-RUN yum -y update
-RUN yum -y install make gcc
+RUN dnf -y update
+RUN dnf -y install make gcc
 
 # firstly let's install postgres - following scollier's Dockerfile from https://git.fedorahosted.org/cgit/dockerfiles.git/tree/postgres
-RUN yum -y install postgresql-server postgresql postgresql-contrib supervisor
+RUN dnf -y install postgresql-server postgresql postgresql-contrib supervisor
 ADD ./postgresql-setup /usr/bin/postgresql-setup
 ADD ./postgres_user.sh /postgres_user.sh
 ADD ./supervisord.conf /etc/supervisord.conf
@@ -30,7 +30,7 @@ RUN echo "host    all             all             0.0.0.0/0               md5" >
 RUN /postgres_user.sh
 
 # now let's install FAS:
-RUN yum -y install git-core postgresql-plpython postgresql-server postgresql-python python-TurboMail TurboGears pygpgme python-sqlalchemy python-genshi python-psycopg4 pytz python-babel babel python-GeoIP python-openid python-fedora-turbogears python-migrate python-memcached python-tgcaptcha2 pyOpenSSL gettext python-imaging python-pwquality tulrich-tuffy-fonts
+RUN dnf -y install git-core postgresql-plpython postgresql-server postgresql-python python-TurboMail TurboGears pygpgme python-sqlalchemy python-genshi python-psycopg4 pytz python-babel babel python-GeoIP python-openid python-fedora-turbogears python-migrate python-memcached python-tgcaptcha2 pyOpenSSL gettext python-imaging python-pwquality tulrich-tuffy-fonts
 
 RUN useradd fedora-dev
 

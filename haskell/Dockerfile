@@ -1,8 +1,8 @@
 FROM fedora
 MAINTAINER "Jens Petersen" <petersen@redhat.com>
 
-RUN yum -y update && yum clean all
-RUN yum -y install ghc cabal-install cabal-rpm cabal-dev\
+RUN dnf -y update && dnf clean all
+RUN dnf -y install ghc cabal-install cabal-rpm ghc-Cabal-devel\
   hscolour ghc-rpm-macros hlint\
   ghc-QuickCheck-devel\
   ghc-cereal-devel\
@@ -28,7 +28,7 @@ RUN yum -y install ghc cabal-install cabal-rpm cabal-dev\
   ghc-attoparsec-devel\
   ghc-dlist-devel\
   ghc-vector-devel\
-  ghc-primitive-devel
+  ghc-primitive-devel\
   ghc-unordered-containers-devel\
   ghc-random-devel\
   ghc-syb-devel\
@@ -39,7 +39,8 @@ RUN yum -y install ghc cabal-install cabal-rpm cabal-dev\
   ghc-parsec-devel\
   ghc-mtl-devel\
   ghc-text-devel\
-  ghc-transformers-devel &&\
- yum clean all
+  ghc-transformers-devel\
+  bash &&\
+ dnf clean all
 
 CMD [ "/bin/bash" ]

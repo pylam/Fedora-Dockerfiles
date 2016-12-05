@@ -1,8 +1,8 @@
 FROM fedora
 MAINTAINER Aditya Patawari <adimania@fedoraproject.org>
 
-RUN yum -y update && yum clean all
-RUN yum -y install python-flask && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install python-flask && dnf clean all
 ADD flask-example.py /opt/
 EXPOSE 5000
 

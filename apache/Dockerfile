@@ -1,8 +1,8 @@
-FROM fedora:20
+FROM fedora
 MAINTAINER "Scott Collier" <scollier@redhat.com>
 
-RUN yum -y update && yum clean all
-RUN yum -y install httpd && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install httpd && dnf clean all
 RUN echo "Apache" >> /var/www/html/index.html
 
 EXPOSE 80

@@ -5,8 +5,8 @@ FROM fedora
 MAINTAINER "Michal Luscon" <mluscon@redhat.com>
 
 # Install Squid
-RUN yum -y update; yum clean all;
-RUN yum -y install squid; yum clean all;
+RUN dnf -y update; dnf clean all;
+RUN dnf -y install squid; dnf clean all;
 
 ADD squid.conf /etc/squid/squid.conf
  

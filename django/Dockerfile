@@ -2,9 +2,8 @@ FROM fedora
 MAINTAINER Aditya Patawari <adimania@fedoraproject.org>
 
 RUN dnf -y update && dnf clean all
-RUN dnf -y install redis && dnf clean all
+RUN dnf -y install python-pip python-django git sqlite && dnf clean all
 
-EXPOSE 6379
+EXPOSE 8000
 
-CMD [ "redis-server" ]
-
+CMD [ "/bin/bash" ]

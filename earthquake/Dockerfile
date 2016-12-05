@@ -4,8 +4,8 @@ FROM fedora
 MAINTAINER "Maciej Lasyk" <maciek@lasyk.info>
 
 # install main packages:
-RUN yum -y update && yum clean all
-RUN yum -y install openssl-devel openssl readline readline-devel gcc gcc-c++ rubygems rubygems-devel ruby ruby-devel && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install openssl-devel openssl readline readline-devel gcc gcc-c++ rubygems rubygems-devel ruby ruby-devel redhat-rpm-config && dnf clean all
 
 # install earthquake
 RUN gem install earthquake

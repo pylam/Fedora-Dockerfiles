@@ -1,8 +1,8 @@
-FROM fedora:20
+FROM fedora
 MAINTAINER Stephen Tweedie <sct@redhat.com>
 
-RUN yum -y update && yum clean all
-RUN yum -y install mariadb-server pwgen supervisor psmisc net-tools && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install mariadb-server pwgen supervisor psmisc net-tools && dnf clean all
 
 ADD ./start.sh /start.sh
 ADD ./config_mariadb.sh /config_mariadb.sh

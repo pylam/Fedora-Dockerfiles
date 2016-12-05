@@ -4,8 +4,8 @@ FROM fedora
 MAINTAINER "Jiri Popelka" <jpopelka@redhat.com>
 
 # install main packages:
-RUN yum -y update && yum clean all
-RUN yum -y install dhcp && yum clean all
+RUN dnf -y update && dnf clean all
+RUN dnf -y install dhcp && dnf clean all
 
 ADD dhcpd.sh /dhcpd
 

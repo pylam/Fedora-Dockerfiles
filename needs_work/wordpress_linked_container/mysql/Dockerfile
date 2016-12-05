@@ -1,8 +1,8 @@
 FROM fedora
 MAINTAINER scollier <scollier@redhat.com>
 
-RUN yum -y update
-RUN yum -y install community-mysql-server community-mysql pwgen supervisor bash-completion openssh-server psmisc net-tools
+RUN dnf -y update
+RUN dnf -y install community-mysql-server community-mysql pwgen supervisor bash-completion openssh-server psmisc net-tools
 
 ADD ./start.sh /start.sh
 ADD ./supervisord.conf /etc/supervisord.conf

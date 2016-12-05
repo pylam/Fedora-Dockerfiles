@@ -1,8 +1,8 @@
-FROM fedora:20
-MAINTAINER "Brent Baude" <bbaude@redhat.com>
+FROM fedora
+MAINTAINER "Alan" <docker.syssolhk.com>
 ENV container docker
-RUN yum -y update && yum clean all
-RUN yum -y install virt-install systemd libvirt-client && yum clean all; \
+RUN dnf -y update && dnf clean all
+RUN dnf -y install virt-install systemd libvirt-client && dnf clean all; \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
 rm -f /lib/systemd/system/multi-user.target.wants/*;\
 rm -f /etc/systemd/system/*.wants/*;\

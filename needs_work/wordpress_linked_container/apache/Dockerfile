@@ -1,8 +1,8 @@
 FROM fedora
 MAINTAINER scollier <scollier@redhat.com>
 
-RUN yum -y update
-RUN yum -y install httpd php php-mysql php-gd pwgen supervisor bash-completion openssh-server psmisc
+RUN dnf -y update
+RUN dnf -y install httpd php php-mysql php-gd pwgen supervisor bash-completion openssh-server psmisc
 
 ADD ./start.sh /start.sh
 ADD ./foreground.sh /etc/apache2/foreground.sh

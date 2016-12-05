@@ -1,10 +1,10 @@
-FROM fedora:rawhide
+FROM fedora
 MAINTAINER "Dan Walsh" <dwalsh@redhat.com>
 
 ENV container docker
 
-RUN yum -y update && yum clean all
-RUN yum -y install systemd httpd && yum clean all; \
+RUN dnf -y update && dnf clean all
+RUN dnf -y install systemd httpd && dnf clean all; \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
 rm -f /lib/systemd/system/multi-user.target.wants/*;\
 rm -f /etc/systemd/system/*.wants/*;\
