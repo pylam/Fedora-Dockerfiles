@@ -30,7 +30,7 @@ EXPOSE 3306
 RUN INSTALL_PKGS="rsync tar gettext hostname bind-utils policycoreutils mariadb-server" && \
     dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
-    dnf clean all && \
+    dnf clean all
     mkdir -p /var/lib/mysql/data && chown -R mysql.0 /var/lib/mysql && \
     rpm -q --qf '%{version}' mariadb-server | grep -e '10\.0\.' && \
     test "$(id mysql)" = "uid=27(mysql) gid=27(mysql) groups=27(mysql)"

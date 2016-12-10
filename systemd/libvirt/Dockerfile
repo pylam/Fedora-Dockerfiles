@@ -1,4 +1,4 @@
-FROM fedora/systemd-systemd
+FROM pylam/fedora:systemd.systemd
 MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 # USING THIS CONTAINER

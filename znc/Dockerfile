@@ -17,8 +17,8 @@ EXPOSE 6667
 RUN INSTALL_PKGS="rsync tar gettext hostname bind-utils policycoreutils znc znc-devel" && \
     dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
-    dnf clean all && \
-    mkdir -p /var/lib/znc-data && chown -R znc.0 /var/lib/znc-data && \
+    dnf clean all
+RUN mkdir -p /var/lib/znc-data && chown -R znc.0 /var/lib/znc-data && \
     rpm -q --qf '%{version}' znc | grep -e '1\.6\.3' && \
     test "$(id znc)" = "uid=995(znc) gid=994(znc) groups=994(znc)"
 

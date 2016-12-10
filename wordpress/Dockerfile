@@ -1,7 +1,7 @@
 FROM fedora
 MAINTAINER http://fedoraproject.org/wiki/Cloud
 RUN dnf -y update && dnf clean all
-RUN dnf -y install httpd php php-mysql php-gd pwgen psmisc tar && \
+RUN dnf -y install httpd php php-mysqlnd php-gd pwgen psmisc tar && \
     dnf clean all
 
 ADD scripts /scripts

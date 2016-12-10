@@ -1,4 +1,4 @@
-FROM fedora:rawhide
+FROM fedora
 MAINTAINER http://fedoraproject.org/wiki/Cloud
 
 RUN dnf -y install openvswitch && dnf clean all; \

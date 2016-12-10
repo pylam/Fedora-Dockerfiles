@@ -1,4 +1,4 @@
-FROM fedora:23
+FROM fedora
 LABEL Component="openscap-daemon" \
       Name="fedora-cloud/atomic-scan-openscap" \
       Version="0.1" \
